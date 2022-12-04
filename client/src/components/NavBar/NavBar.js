@@ -1,7 +1,7 @@
 import React from 'react'
-import { Typography, AppBar, Toolbar } from '@mui/material'
+import { Typography, AppBar, Toolbar, Menu, MenuItem } from '@mui/material'
 import { Link } from 'react-router-dom'
-import logoImage from "../assets/images/logo.png"
+import logoImage from "../../assets/images/logo.png"
 
 //303461
 const NavBar = () => {
@@ -12,7 +12,7 @@ const NavBar = () => {
             padding: "10px",
     }}>
         <Toolbar>
-            <Typography 
+            <Typography  
             variant="h6" 
             component={Link} 
             to="/" 
@@ -29,6 +29,7 @@ const NavBar = () => {
             }}>
                 <img src={logoImage} alt="screenium logo" width="300px" />
             </Typography>
+            
             
 
         </Toolbar>
