@@ -3,8 +3,6 @@ import { Typography, AppBar, Toolbar, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import logoImage from "../../assets/images/logo.png"
 
-//303461
-// TODO: Create theme colors for primary, secondary, etc.
 const NavBar = () => {
   return (
     <AppBar position="static" color="primary" 
@@ -29,12 +27,17 @@ const NavBar = () => {
                 <Button component={Link} to="/explore" color="inherit">Explore</Button>
                 <Button component={Link} to="/forums" color="inherit">Forums</Button>
                 <Button component={Link} to="/profile" color="inherit">Profile</Button>
+
+                {/* TODO: conditional rendering of these 3 buttons based on logged in & user role */}
                 <Button component={Link} to="/login" color="inherit">Login</Button>
-                <Button component={Link} to="/login?signup=true" color="primary" variant="contained">Sign Up</Button>
-                <Button component={Link} to="/admin" color="inherit" variant="outlined">Admin Panel</Button>
+
+                <Button component={Link} to="/login?signup=true" variant="contained" 
+                    sx={{ backgroundColor: "#318986", marginRight: 1, borderRadius: "10px" }} >Sign Up</Button>
+
+                <Button component={Link} to="/admin" variant="contained" 
+                    sx={{ backgroundColor: "#D8ECEB", color: "black", borderRadius: "10px" }} >Admin Panel</Button>
             </Box>
             
-
         </Toolbar>
     </AppBar>
     
