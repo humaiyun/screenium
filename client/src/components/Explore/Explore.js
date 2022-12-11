@@ -24,6 +24,20 @@ const Explore = () => {
   return (
     <Container maxWidth="lg">
       <Typography variant="h1">Explore</Typography>
+      <Box sx={{
+        padding: 0,
+        position: "relative",
+        textAlign: "center",
+        color: "#FFF",
+      }}>
+        <img src="https://i.imgur.com/PUNnWrH.png" alt="Header explore" style={{ width: "100%" }} />
+        <Typography variant="h3" sx={{
+          position: "absolute",
+          top: "50%",
+          left: "20%",
+          transform: "translate(-50%, -50%)"
+        }}>Start Exploring.</Typography>
+      </Box>
       {
         !popularMovies.results ? <CircularProgress size="large" />
           : (
