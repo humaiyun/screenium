@@ -76,3 +76,4 @@ const user = new mongoose.Schema({
     }
 });
 
+export default mongoost.model("User", user);
