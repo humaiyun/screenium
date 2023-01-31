@@ -26,6 +26,53 @@ const user = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now()
+    },
+
+
+    firstName: {
+        type: String,
+        trim: true,
+        maxLength: 50,
+        default: ""
+    },
+    lastName: {
+        type: String,
+        trim: true,
+        maxLength: 50,
+        default: ""
+    },
+    gender: {
+        type: String,
+        trim: true,
+        maxLength: 15,
+        default: ""
+    },
+    biography: {
+        type: String,
+        trim: true,
+        maxLength: 150,
+        default: ""
+    },
+    photo: {
+        type: String
+    },
+    watchList: {
+        list: [
+            { 
+                name: { type: String },
+                movieId: { type: Number },
+                picture: { type: String }
+            }
+        ],
+        default: []
+    },
+
+
+    userType: {
+        type: String,
+        enum: ["user", "admin", "banned"],
+        required: true,
+        default: "user"
     }
 });
 
