@@ -5,7 +5,6 @@ import User from "../mongodb/models/users.js";
 
 export const signup = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
-    console.log(req.body);
         
     try {
         const existingUser = await User.findOne({ username }) || await User.findOne({ email });
@@ -29,11 +28,40 @@ export const signup = async (req, res) => {
             }
         );
 
-        res.status(200).json({ message: "Account created successfully", result, token })
+        res.status(200).json({ message: "Account created successfully", token })
 
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Something went wrong" })
+    }
+}
+
+export const signin = async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const existingUser = await User.findOne({ username });
+        if(!existingUser) return res.status(404).json({ message: "User does not exist" });
+
+        const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
+        if(!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
+
+        const token = jwt.sign(
+            {
+                username: existingUser.username,
+                email: existingUser.email,
+                id: existingUser._id,
+                type: existingUser.userType  
+            },
+                process.env.JWT_SECRET_KEY,
+            {
+                expiresIn: "1h"
+            }
+        );
+
+        res.status(200).json({ message: "Logged in successfully", existingUser, token});
+        
+    } catch (error) {
+        
     }
 
 }
