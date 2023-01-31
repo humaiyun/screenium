@@ -57,13 +57,7 @@ const user = new mongoose.Schema({
         type: String
     },
     watchList: {
-        list: [
-            { 
-                name: { type: String },
-                movieId: { type: Number },
-                picture: { type: String }
-            }
-        ],
+        type: [],
         default: []
     },
 
@@ -76,4 +70,4 @@ const user = new mongoose.Schema({
     }
 });
 
-export default mongoost.model("User", user);
+export default mongoose.model("User", user);
