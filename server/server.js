@@ -5,7 +5,7 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 
 import connectDb from "./mongodb/connect.js";
-
+import userRoutes from "./routes/users.js";
 
 const app = express();
 const PORT = process.env.SERVER_PORT;
@@ -19,7 +19,7 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
-// app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/user", userRoutes);
 
 app.get("/", (req, res) => {
     res.json({ message: "Server is running" });
