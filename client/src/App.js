@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Container maxWidth="xl" sx={{ border: "1px solid white"}}>
+      <Container maxWidth="xl" sx={{ }}>
         
         <Routes>
           <Route path="/" exact element={ <Home /> } />
