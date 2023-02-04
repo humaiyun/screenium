@@ -1,9 +1,11 @@
+import { Container } from '@mui/material'
 import React from 'react'
 
 const Footer = () => {
     // TODO: Add href to all links
   return (
     <div className='flex flex-col bg-[#303461] h-80 px-16 py-10'>
+            <Container maxWidth="lg">
         <div className='grid grid-cols-4'>
             <div>
                 <img className=" object-cover object-center pointer-events-none w-36" alt="the movie database" loading='lazy' src="/assets/tmdb.svg" />
@@ -35,6 +37,7 @@ const Footer = () => {
                 </ul>
             </div>
         </div>
+        </Container>
         <p className='text-center text-md mt-8 opacity-50 dark:text-gray-400 dark:opacity-100'>
             &copy; {new Date().getFullYear()} - All rights reserved.
         </p>
