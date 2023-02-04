@@ -10,10 +10,10 @@ const Home = () => {
             <h1 className="md:text-6xl text-2xl mb-4 font-bold">
               Welcome to screenium
             </h1>
-            <p className="mb-8 leading-relaxed">
+            <p className="mb-8 leading-relaxed text-xl">
               Ever wondered who was in a movie? If the tv show your friend recommended is any good? With screenium, those days are long over!
               </p>
-            <p className="mb-8 leading-relaxed">
+            <p className="mb-8 leading-relaxed text-xl">
               But that's not all! Screenium also features a discussion board where you can connect and interact with like-minded individuals. Share your thoughts and opinions on your favorite movies and shows, and discover new ones through the community's recommendations.
             </p>
             <div className="flex justify-center">
@@ -41,6 +41,29 @@ const Home = () => {
           <img className='pointer-events-none ml-4' src='/assets/reddit-logo.png' loading='lazy' alt="reddit logo" />
         </div>
       </section>
+
+      <section className="body-font">
+        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+          <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+            <h1 className="md:text-6xl text-2xl mb-4 font-bold">
+              Explore the latest and greatest in entertainment
+            </h1>
+            <p className="mb-8 leading-relaxed text-xl">
+              Everything you need to know about your favourite movies and tv shows can be found here!
+            </p>
+            <div className="flex justify-center">
+              <button className="inline-flex text-white bg-main-primary border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded text-lg">
+                Start Exploring
+              </button>
+            </div>
+          </div>
+          <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+            <img className="object-cover object-center rounded pointer-events-none" alt="movie posters collage" loading='lazy' src="/assets/posters.png" />
+          </div>
+        </div>
+      </section>
+
+      
 
 
 
