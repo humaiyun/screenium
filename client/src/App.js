@@ -7,12 +7,13 @@ import Forums from "./components/Forums/Forums.js"
 import Profile from "./components/Profile/Profile.js"
 import Login from "./components/Login/Login.js"
 import Admin from "./components/Admin/Admin.js"
+import Footer from './components/NavBar/Footer.js';
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Container maxWidth="xl" sx={{ border: "1px solid white"}}>
+      <Container maxWidth="xl" sx={{ }}>
         
         <Routes>
           <Route path="/" exact element={ <Home /> } />
@@ -25,6 +26,7 @@ function App() {
         
           
       </Container>
+      <Footer />
     </BrowserRouter>  
   );
 }
