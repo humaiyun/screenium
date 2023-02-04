@@ -7,6 +7,7 @@ import Forums from "./components/Forums/Forums.js"
 import Profile from "./components/Profile/Profile.js"
 import Login from "./components/Login/Login.js"
 import Admin from "./components/Admin/Admin.js"
+import Footer from './components/NavBar/Footer.js';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         
           
       </Container>
+      <Footer />
     </BrowserRouter>  
   );
 }
