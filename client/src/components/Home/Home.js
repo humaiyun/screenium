@@ -32,7 +32,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className=''>
+      {/* <section className=''>
         <h1 className='text-4xl font-bold text-center p-8'>Featured in</h1>
         <div className='grid grid-cols-5 gap-x-10'>
           <img className='pointer-events-none' src='/assets/forbes-logo.png' loading='lazy' alt="forbes logo" />
@@ -41,7 +41,7 @@ const Home = () => {
           <img className='pointer-events-none' src='/assets/washington-post-logo.png' loading='lazy' alt="washington post logo" />
           <img className='pointer-events-none ml-4' src='/assets/reddit-logo.png' loading='lazy' alt="reddit logo" />
         </div>
-      </section>
+      </section> */}
 
       <section className="body-font">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
