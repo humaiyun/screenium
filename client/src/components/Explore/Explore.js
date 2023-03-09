@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react";
 import {
   getTrendingMovies,
   getTrendingTV,
-  getSearchQuery,
+  //getSearchQuery,
+  getSearchMovies,
+  getSearchTV,
+  getSearchPeople,
 } from "../../api/api";
 import { Link } from "react-router-dom";
 
 const Explore = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [didSearch, setDidSearch] = useState(false);
+  const [currFilter, setCurrFilter] = useState("movies");
 
   const [trendingMovies, setTrendingMovies] = useState(null);
   const [trendingTV, setTrendingTV] = useState(null);
@@ -22,11 +26,6 @@ const Explore = () => {
     setSearchQuery(e.target.value);
   };
 
-  // TODO: Delete this after
-  // useEffect(() => {
-  //   console.log(searchQuery);
-  // }, [searchQuery]);
-
   useEffect(() => {
     const fetchData = async () => {
       await getTrendingMovies().then((res) =>
@@ -38,21 +37,59 @@ const Explore = () => {
     fetchData();
   }, []);
 
+  const changeCurrFilter = () => {
+    const filterInput = document.getElementById("filter").value;
+    setCurrFilter(filterInput);
+  };
+
   const searchSubmit = (e) => {
     e.preventDefault();
     setDidSearch(true);
 
     const searchInput = document.getElementById("search").value;
+    const filterInput = document.getElementById("filter").value;
 
-    const searchQuery = async (query) => {
-      await getSearchQuery(query)
+    const searchQueryMovies = async (query) => {
+      await getSearchMovies(query)
         .then((res) => {
           setSearchedResults([...res.data.results]);
         })
         .then(() => console.log(searchedResults));
     };
 
-    searchQuery(searchInput);
+    const searchQueryTV = async (query) => {
+      await getSearchTV(query)
+        .then((res) => {
+          setSearchedResults([...res.data.results]);
+        })
+        .then(() => console.log(searchedResults));
+    };
+
+    const searchQueryPeople = async (query) => {
+      await getSearchPeople(query)
+        .then((res) => {
+          setSearchedResults([...res.data.results]);
+        })
+        .then(() => console.log(searchedResults));
+    };
+
+    if (filterInput === "movies") {
+      searchQueryMovies(searchInput);
+    } else if (filterInput === "tvShows") {
+      searchQueryTV(searchInput);
+    } else if (filterInput === "people") {
+      searchQueryPeople(searchInput);
+    }
+  };
+
+  const linkToDetailsPage = (id) => {
+    if (currFilter === "movies") {
+      return `/explore/movie/${id}`;
+    } else if (currFilter === "tvShows") {
+      return `/explore/tv/${id}`;
+    } else if (currFilter === "people") {
+      return `/explore/person/${id}`;
+    }
   };
 
   return (
@@ -110,9 +147,11 @@ const Explore = () => {
               name="filter"
               id="filter"
               className="text-black  p-5 mt-3 mb-3 text-xl font-bold"
+              onChange={changeCurrFilter}
             >
               <option value="movies">Movies</option>
               <option value="tvShows">TV Shows</option>
+              <option value="people">People</option>
             </select>
             <button
               className="bg-main-primary p-5 mt-3 mb-3 mr-3 rounded-r-full text-3xl font-semibold hover:bg-main-secondary hover:scale-105 active:scale-100 transition duration-300 hover:text-black"
@@ -148,11 +187,13 @@ const Explore = () => {
                     key={i}
                     className="bg-[#303461] rounded-2xl cursor-pointer"
                   >
-                    <Link to={`/explore/${res?.id}`}>
+                    <Link to={linkToDetailsPage(res?.id)}>
                       <div className="grid grid-cols-4">
                         <img
                           className="rounded-t-xl pointer-events-none max-h-[300px]"
-                          src={`${imagePath}${res?.poster_path}`}
+                          src={`${imagePath}${
+                            res?.poster_path || res?.profile_path
+                          }`}
                           alt={res?.original_title}
                           loading="lazy"
                         />
@@ -160,11 +201,16 @@ const Explore = () => {
                           <h1 className="text-3xl font-bold py-5">
                             {res?.original_title || res?.name}
                             <span className="ml-10 text-2xl">
-                              {res?.first_air_date || res?.release_date}
+                              {res?.first_air_date ||
+                                res?.release_date ||
+                                res?.known_for_department}
                             </span>
-                            <span className="ml-10 text-2xl bg-main-background border border-white p-3 rounded-full">
-                              ⭐ {res?.vote_average?.toFixed(1)}
-                            </span>
+
+                            {res?.vote_average ? (
+                              <span className="ml-10 text-2xl bg-main-background border border-white p-3 rounded-full">
+                                ⭐ {res?.vote_average.toFixed(1)}
+                              </span>
+                            ) : null}
                           </h1>
                           <h2 className="text-md">{res?.overview}</h2>
                         </div>
