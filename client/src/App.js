@@ -8,7 +8,9 @@ import Profile from "./components/Profile/Profile.js";
 import Login from "./components/Login/Login.js";
 import Admin from "./components/Admin/Admin.js";
 import Footer from "./components/NavBar/Footer.js";
-import DetailsPage from "./components/Explore/DetailsPage.js";
+import MovieDetailsPage from "./components/Explore/MovieDetailsPage.js";
+import TvDetailsPage from "./components/Explore/TvDetailsPage.js";
+import PersonDetailsPage from "./components/Explore/PersonDetailsPage.js";
 
 function App() {
   return (
@@ -18,7 +20,17 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/explore" exact element={<Explore />} />
-          <Route path="/explore/:id" exact element={<DetailsPage />} />
+          <Route
+            path="/explore/movie/:id"
+            exact
+            element={<MovieDetailsPage />}
+          />
+          <Route path="/explore/tv/:id" exact element={<TvDetailsPage />} />
+          <Route
+            path="/explore/person/:id"
+            exact
+            element={<PersonDetailsPage />}
+          />
           <Route path="/forums" exact element={<Forums />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/login" exact element={<Login />} />
