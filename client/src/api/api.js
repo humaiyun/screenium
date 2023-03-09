@@ -7,3 +7,5 @@ const API = axios.create({ baseURL: process.env.REACT_APP_TMDB_BASE_URL });
 
 export const getTrendingMovies = () =>
   API.get(`/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+export const getTrendingTV = () =>
+  API.get(`/trending/tv/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
