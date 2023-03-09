@@ -1,12 +1,14 @@
 import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getTrendingMovies } from "../../api/api";
+import { getTrendingMovies, getTrendingTV } from "../../api/api";
 
 const Explore = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [didSearch, setDidSearch] = useState(false);
   const [trendingMovies, setTrendingMovies] = useState(null);
-  const [popTV, setPopTV] = useState(null);
+  const [trendingTV, setTrendingTV] = useState(null);
+
+  const imagePath = "https://image.tmdb.org/t/p/w300";
 
   const onSearchQueryChange = (e) => {
     setSearchQuery(e.target.value);
@@ -22,6 +24,7 @@ const Explore = () => {
       await getTrendingMovies().then((res) =>
         setTrendingMovies([...res.data.results])
       );
+      await getTrendingTV().then((res) => setTrendingTV([...res.data.results]));
     };
 
     fetchData();
@@ -31,11 +34,11 @@ const Explore = () => {
     e.preventDefault();
     setDidSearch(true);
     console.log(trendingMovies);
-    console.log(popTV);
+    console.log(trendingTV);
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" className="mb-52">
       <Typography variant="h1">Explore</Typography>
       <Box
         sx={{
@@ -73,7 +76,7 @@ const Explore = () => {
           Millions of movies, TV shows, and people to discover.
         </Typography>
       </Box>
-      <div className="place-items-center">
+      <div className="place-items-center mb-12 mt-5">
         <form onSubmit={searchSubmit}>
           <div className="grid grid-cols-4">
             <input
@@ -89,6 +92,52 @@ const Explore = () => {
             </button>
           </div>
         </form>
+      </div>
+      <div>
+        <h1 className="text-3xl text-left font-semibold">Popular Movies</h1>
+        <div className="grid grid-cols-5 gap-1 rounded-lg">
+          {trendingMovies?.slice(0, 5).map((movie) => (
+            <div key={movie?.id} className="bg-[#303461] rounded-xl">
+              <img
+                className="rounded-t-xl pointer-events-none"
+                src={`${imagePath}${movie?.poster_path}`}
+                alt={movie?.original_title}
+                loading="lazy"
+              />
+              <div className="grid grid-cols-2 gap-1 place-items-center">
+                <div className="bg-main-secondary font-bold text-xl max-w-[50px] p-2 m-3 rounded-full text-black text-center">
+                  {movie?.vote_average?.toFixed(1)}
+                </div>
+                <h2 className="text-lg p-2 font-light">
+                  {movie?.release_date}
+                </h2>
+              </div>
+              <h1 className="text-xl p-2">{movie?.original_title}</h1>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="my-16">
+        <h1 className="text-3xl text-left font-semibold">Popular TV Shows</h1>
+        <div className="grid grid-cols-5 gap-1 rounded-lg">
+          {trendingTV?.slice(0, 5).map((tv) => (
+            <div key={tv?.id} className="bg-[#303461] rounded-xl">
+              <img
+                className="rounded-t-xl pointer-events-none"
+                src={`${imagePath}${tv?.poster_path}`}
+                alt={tv?.name}
+                loading="lazy"
+              />
+              <div className="grid grid-cols-2 gap-1 place-items-center">
+                <div className="bg-main-secondary font-bold text-xl max-w-[50px] p-2 m-3 rounded-full text-black text-center">
+                  {tv?.vote_average?.toFixed(1)}
+                </div>
+                <h2 className="text-lg p-2 font-light">{tv?.first_air_date}</h2>
+              </div>
+              <h1 className="text-xl p-2">{tv?.name}</h1>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
   );
