@@ -9,3 +9,7 @@ export const getTrendingMovies = () =>
   API.get(`/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 export const getTrendingTV = () =>
   API.get(`/trending/tv/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+export const getSearchQuery = (query) =>
+  API.get(
+    `/search/multi?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&query=${query}`
+  );
