@@ -13,3 +13,7 @@ export const getSearchQuery = (query) =>
   API.get(
     `/search/multi?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&query=${query}`
   );
+export const getDetailsByID = (id) =>
+  API.get(
+    `/search/multi?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&query=${id}&page=1`
+  );
