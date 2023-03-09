@@ -5,6 +5,7 @@ import {
   getTrendingTV,
   getSearchQuery,
 } from "../../api/api";
+import { Link } from "react-router-dom";
 
 const Explore = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -96,7 +97,7 @@ const Explore = () => {
 
       <div className="place-items-center mb-12 mt-5">
         <form id="searchForm" name="searchForm">
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-5">
             <input
               className="p-5 col-span-3 text-3xl rounded-l-full text-black mt-3 mb-3 ml-3"
               type="text"
@@ -105,6 +106,14 @@ const Explore = () => {
               placeholder="Search for a movie, tv show, person, etc......"
               onChange={onSearchQueryChange}
             />
+            <select
+              name="filter"
+              id="filter"
+              className="text-black  p-5 mt-3 mb-3 text-xl font-bold"
+            >
+              <option value="movies">Movies</option>
+              <option value="tvShows">TV Shows</option>
+            </select>
             <button
               className="bg-main-primary p-5 mt-3 mb-3 mr-3 rounded-r-full text-3xl font-semibold hover:bg-main-secondary hover:scale-105 active:scale-100 transition duration-300 hover:text-black"
               disabled={searchQuery?.length < 3}
@@ -134,28 +143,33 @@ const Explore = () => {
 
             {searchedResults?.length ? (
               <div className="grid grid-flow-row gap-5">
-                {searchedResults?.map((res) => (
-                  <div className="bg-[#303461] rounded-2xl">
-                    <div className="grid grid-cols-4">
-                      <img
-                        className="rounded-t-xl pointer-events-none max-h-[300px]"
-                        src={`${imagePath}${res?.poster_path}`}
-                        alt={res?.original_title}
-                        loading="lazy"
-                      />
-                      <div className="grid grid-flow-row col-span-3 p-3">
-                        <h1 className="text-3xl font-bold py-5">
-                          {res?.original_title || res?.name}
-                          <span className="ml-10 text-2xl">
-                            {res?.first_air_date || res?.release_date}
-                          </span>
-                          <span className="ml-10 text-2xl bg-main-background border border-white p-3 rounded-full">
-                            ⭐ {res?.vote_average?.toFixed(1)}
-                          </span>
-                        </h1>
-                        <h2 className="text-md">{res?.overview}</h2>
+                {searchedResults?.map((res, i) => (
+                  <div
+                    key={i}
+                    className="bg-[#303461] rounded-2xl cursor-pointer"
+                  >
+                    <Link to={`/explore/${res?.id}`}>
+                      <div className="grid grid-cols-4">
+                        <img
+                          className="rounded-t-xl pointer-events-none max-h-[300px]"
+                          src={`${imagePath}${res?.poster_path}`}
+                          alt={res?.original_title}
+                          loading="lazy"
+                        />
+                        <div className="grid grid-flow-row col-span-3 p-3">
+                          <h1 className="text-3xl font-bold py-5">
+                            {res?.original_title || res?.name}
+                            <span className="ml-10 text-2xl">
+                              {res?.first_air_date || res?.release_date}
+                            </span>
+                            <span className="ml-10 text-2xl bg-main-background border border-white p-3 rounded-full">
+                              ⭐ {res?.vote_average?.toFixed(1)}
+                            </span>
+                          </h1>
+                          <h2 className="text-md">{res?.overview}</h2>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 ))}
               </div>
