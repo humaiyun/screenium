@@ -7,7 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const Login = () => {
 
-  const formStyle = {borderRadius:10, padding: 20, height: '32vh', width: 480, margin: "40px auto", backgroundColor: "#303461"}
+  const formStyle = {borderRadius:10, padding: 20, height: '32vh', width: 480, margin: "233px auto", backgroundColor: "#303461"}
   return (
     <Grid>    
       <Paper elevation={10} style={formStyle}>
