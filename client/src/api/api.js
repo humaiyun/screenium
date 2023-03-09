@@ -27,7 +27,19 @@ export const getSearchPeople = (query) =>
   );
 
 // Details for movie, tv, person
-export const getDetailsByID = (id) =>
+// export const getDetailsByID = (id) =>
+//   API.get(
+//     `/search/multi?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&query=${id}&page=1`
+//   );
+export const getMovieDetails = (id) =>
   API.get(
-    `/search/multi?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&query=${id}&page=1`
+    `/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
+  );
+export const getTVDetails = (id) =>
+  API.get(
+    `/tv/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
+  );
+export const getPersonDetails = (id) =>
+  API.get(
+    `/person/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   );
