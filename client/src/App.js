@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile.js";
 import Login from "./components/Login/Login.js";
 import Admin from "./components/Admin/Admin.js";
 import Footer from "./components/NavBar/Footer.js";
+import DetailsPage from "./components/Explore/DetailsPage.js";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/explore" exact element={<Explore />} />
-          <Route path="/explore/:id" exact element={<Explore />} />
+          <Route path="/explore/:id" exact element={<DetailsPage />} />
           <Route path="/forums" exact element={<Forums />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/login" exact element={<Login />} />
