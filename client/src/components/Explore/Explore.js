@@ -76,6 +76,7 @@ const Explore = () => {
           Millions of movies, TV shows, and people to discover.
         </Typography>
       </Box>
+
       <div className="place-items-center mb-12 mt-5">
         <form onSubmit={searchSubmit}>
           <div className="grid grid-cols-4">
@@ -87,12 +88,30 @@ const Explore = () => {
               placeholder="Search for a movie, tv show, person, etc......"
               onChange={onSearchQueryChange}
             />
-            <button className="bg-main-primary p-5 mt-3 mb-3 mr-3 rounded-r-full text-3xl font-semibold">
+            <button
+              className="bg-main-primary p-5 mt-3 mb-3 mr-3 rounded-r-full text-3xl font-semibold hover:bg-main-secondary hover:scale-105 active:scale-100 transition duration-300 hover:text-black"
+              disabled={searchQuery.length < 3}
+            >
               SEARCH
             </button>
           </div>
         </form>
       </div>
+
+      {didSearch ? (
+        <div className="mb-16">
+          <button
+            className=" bg-main-primary p-5 text-3xl font-semibold w-full rounded-full hover:bg-main-secondary hover:scale-105 active:scale-100 transition duration-300 hover:text-black mb-10"
+            onClick={() => setDidSearch(false)}
+          >
+            CLEAR SEARCH RESULTS
+          </button>
+          <div>
+            <h1 className="text-6xl">Showing results for {searchQuery}...</h1>
+          </div>
+        </div>
+      ) : null}
+
       <div>
         <h1 className="text-3xl text-left font-semibold">Popular Movies</h1>
         <div className="grid grid-cols-5 gap-1 rounded-lg">
