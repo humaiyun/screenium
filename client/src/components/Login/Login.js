@@ -16,7 +16,7 @@ const Login = () => {
 
 
   const loginStyle = {borderRadius:10, padding: 40, height: '35vh', width: 680, margin: "233px auto", backgroundColor: "#303461"}
-  const signupStyle = {borderRadius:10, padding: 40, height: '45vh', width: 680, margin: "233px auto", backgroundColor: "#303461"}
+  const signupStyle = {borderRadius:10, padding: 40, height: '48vh', width: 680, margin: "233px auto", backgroundColor: "#303461"}
   if(authMode === "login"){
     return (
       <Grid>    
@@ -68,8 +68,13 @@ const Login = () => {
             >
               LOGIN
           </Button>
-          <Typography>
-            Do you have an account? <Button onClick={changeMode}>Sign Up</Button>
+          <Typography sx={{
+              color: 'white',
+              margin: "10px 0px",
+              textAlign: "center"
+          }}>
+            Do you need an account? 
+            <Button onClick={changeMode}>Sign Up</Button>
           </Typography>
   
   
@@ -165,6 +170,14 @@ const Login = () => {
             >
               Signup
             </Button>
+            <Typography sx={{
+              color: 'white',
+              margin: "10px 0px",
+              textAlign: "center"
+          }}>
+           Already have an account? 
+            <Button onClick={changeMode}>Login</Button>
+          </Typography>
   
   
           
