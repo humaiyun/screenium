@@ -7,7 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const Login = () => {
 
-  const formStyle = {borderRadius:10, padding: 20, height: '32vh', width: 480, margin: "233px auto", backgroundColor: "#303461"}
+  const formStyle = {borderRadius:10, padding: 40, height: '32vh', width: 680, margin: "233px auto", backgroundColor: "#303461"}
   return (
     <Grid>    
       <Paper elevation={10} style={formStyle}>
@@ -25,12 +25,12 @@ const Login = () => {
             textAlign: "center"
         }}>In order to use the forums and personal list capabilities, you will need to login to your account.</Typography>
       
-      <TextField label="Username" variant="outlined" fullWidth required 
+      <TextField label="Username" fullWidth required 
         sx={{
           bgcolor: '#000732',
           input: { color: 'white' },
           label: { color: 'white' },
-          margin: "20px 0px",
+          margin: "20px 20px 20px 0px",
           borderRadius: "10px"
         }}
         InputProps={{startAdornment:(
@@ -39,7 +39,7 @@ const Login = () => {
           </InputAdornment>
         )}} 
         />
-      <TextField  label="Password" variant="outlined" margin="30px" type="password" fullWidth required 
+      <TextField  label="Password"  margin="30px" type="password" fullWidth required 
       sx={{
           bgcolor: '#000732',
           input: { color: 'white' },
