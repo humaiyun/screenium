@@ -1,19 +1,38 @@
 import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getDiscoverPopularMovies, getTrendingMovies } from "../../api/api";
+import { getTrendingMovies } from "../../api/api";
 
 const Explore = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [didSearch, setDidSearch] = useState(false);
+  const [trendingMovies, setTrendingMovies] = useState(null);
+  const [popTV, setPopTV] = useState(null);
 
   const onSearchQueryChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  useEffect(() => {
-    console.log(searchQuery);
-  }, [searchQuery]);
+  // TODO: Delete this after
+  // useEffect(() => {
+  //   console.log(searchQuery);
+  // }, [searchQuery]);
 
-  const searchSubmit = () => {};
+  useEffect(() => {
+    const fetchData = async () => {
+      await getTrendingMovies().then((res) =>
+        setTrendingMovies([...res.data.results])
+      );
+    };
+
+    fetchData();
+  }, []);
+
+  const searchSubmit = (e) => {
+    e.preventDefault();
+    setDidSearch(true);
+    console.log(trendingMovies);
+    console.log(popTV);
+  };
 
   return (
     <Container maxWidth="lg">
