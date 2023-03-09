@@ -1,16 +1,43 @@
-import React from "react";
-import { Button, InputAdornment, TextField, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { InputAdornment, TextField, Typography } from "@mui/material";
 import { Grid, Paper } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
+const initialState = {
+  username: "",
+  password: "",
+  confirmPassword: "",
+  email: "",
+};
 const Login = () => {
   let [authMode, setAuthMode] = useState("login");
+  const [formData, setFormData] = useState(initialState);
+
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    search === "?signup=true" ? setAuthMode("signup") : setAuthMode("login");
+  }, []);
 
   const changeMode = () => {
     setAuthMode(authMode === "login" ? "signup" : "login");
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("Login", formData);
+  };
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    console.log("Signup", formData);
   };
 
   const loginStyle = {
@@ -24,7 +51,7 @@ const Login = () => {
   const signupStyle = {
     borderRadius: 10,
     padding: 40,
-    height: "48vh",
+    height: "54vh",
     width: 680,
     margin: "233px auto",
     backgroundColor: "#303461",
@@ -43,8 +70,10 @@ const Login = () => {
 
           <TextField
             label="Username"
+            name="username"
             fullWidth
             required
+            onChange={handleChange}
             placeholder="Enter your username"
             sx={{
               bgcolor: "#000732",
@@ -63,9 +92,11 @@ const Login = () => {
           />
           <TextField
             label="Password"
+            name="password"
             margin="30px"
             type="password"
             placeholder="Enter your password"
+            onChange={handleChange}
             fullWidth
             required
             sx={{
@@ -84,7 +115,10 @@ const Login = () => {
             }}
           />
 
-          <button className=" bg-main-background px-5 py-2 mt-2 text-xl text-white font-semibold w-full rounded-xl border border-white hover:scale-105 active:scale-95 transition duration-200">
+          <button
+            className=" bg-main-background px-5 py-2 mt-2 text-xl text-white font-semibold w-full rounded-xl border border-white hover:scale-105 active:scale-95 transition duration-200"
+            onClick={handleLogin}
+          >
             LOGIN
           </button>
           <Typography
@@ -108,35 +142,20 @@ const Login = () => {
   return (
     <Grid>
       <Paper elevation={10} style={signupStyle}>
-        <Typography
-          variant="h1"
-          fontSize={32}
-          sx={{
-            color: "white",
-            fontWeight: "bold",
-            textAlign: "center",
-          }}
-        >
-          Sign Up to your account
-        </Typography>
-
-        <Typography
-          variant="h1"
-          fontSize={16}
-          sx={{
-            color: "white",
-            margin: "10px 0px",
-            textAlign: "center",
-          }}
-        >
+        <h1 className="text-5xl text-white font-bold text-center">
+          Sign Up for an account
+        </h1>
+        <h3 className="text-lg text-white text-center my-5">
           Signing up for an account is free and easy. Fill out the form below to
           get started.
-        </Typography>
-
+        </h3>
         <TextField
           label="Username"
+          name="username"
           fullWidth
           required
+          onChange={handleChange}
+          placeholder="Enter your username"
           sx={{
             bgcolor: "#000732",
             input: { color: "white" },
@@ -154,9 +173,12 @@ const Login = () => {
         />
         <TextField
           label="Password"
+          name="password"
           margin="30px"
           type="password"
           fullWidth
+          onChange={handleChange}
+          placeholder="Enter your password"
           required
           sx={{
             bgcolor: "#000732",
@@ -177,8 +199,11 @@ const Login = () => {
           label="Confirm Password"
           margin="30px"
           type="password"
+          name="confirmPassword"
+          placeholder="Confirm your password"
           fullWidth
           required
+          onChange={handleChange}
           sx={{
             bgcolor: "#000732",
             input: { color: "white" },
@@ -197,8 +222,11 @@ const Login = () => {
 
         <TextField
           label="Email"
+          name="email"
           fullWidth
           required
+          onChange={handleChange}
+          placeholder="Enter your email"
           sx={{
             bgcolor: "#000732",
             input: { color: "white" },
@@ -215,9 +243,12 @@ const Login = () => {
           }}
         />
 
-        <Button className=" bg-main-background p-5 text-3xl font-semibold w-full rounded-full">
-          Signup
-        </Button>
+        <button
+          className=" bg-main-background px-5 py-2 mt-2 text-xl text-white font-semibold w-full rounded-xl border border-white hover:scale-105 active:scale-95 transition duration-200"
+          onClick={handleSignUp}
+        >
+          SIGNUP
+        </button>
         <Typography
           sx={{
             color: "white",
@@ -225,8 +256,12 @@ const Login = () => {
             textAlign: "center",
           }}
         >
-          Already have an account?
-          <Button onClick={changeMode}>Login</Button>
+          <button
+            className="p-3 bg-main-secondary px-5 py-2 mt-2 text-sm text-black font-semibold w-full rounded-xl border border-black hover:scale-105 active:scale-95 transition duration-200"
+            onClick={changeMode}
+          >
+            Already have an account? Login
+          </button>
         </Typography>
       </Paper>
     </Grid>
