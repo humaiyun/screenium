@@ -94,7 +94,6 @@ const Explore = () => {
 
   return (
     <Container maxWidth="lg" className="mb-52">
-      <Typography variant="h1">Explore</Typography>
       <Box
         sx={{
           padding: 0,
@@ -236,8 +235,8 @@ const Explore = () => {
                 loading="lazy"
               />
               <div className="grid grid-cols-2 gap-1 place-items-center">
-                <div className="bg-main-secondary font-bold text-xl max-w-[50px] p-2 m-3 rounded-full text-black text-center">
-                  {movie?.vote_average?.toFixed(1)}
+                <div className="bg-main-secondary font-bold text-xl p-2 m-3 rounded-full text-black text-center">
+                  ⭐{movie?.vote_average?.toFixed(1)}
                 </div>
                 <h2 className="text-lg p-2 font-light">
                   {movie?.release_date}
@@ -260,8 +259,8 @@ const Explore = () => {
                 loading="lazy"
               />
               <div className="grid grid-cols-2 gap-1 place-items-center">
-                <div className="bg-main-secondary font-bold text-xl max-w-[50px] p-2 m-3 rounded-full text-black text-center">
-                  {tv?.vote_average?.toFixed(1)}
+                <div className="bg-main-secondary font-bold text-xl p-2 m-3 rounded-full text-black text-center">
+                  ⭐{tv?.vote_average?.toFixed(1)}
                 </div>
                 <h2 className="text-lg p-2 font-light">{tv?.first_air_date}</h2>
               </div>
