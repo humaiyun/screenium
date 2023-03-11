@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Typography, AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoImage from "../../assets/images/logo.png";
+import decode from "jwt-decode";
 
 const NavBar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -18,6 +19,12 @@ const NavBar = () => {
     setUserType(user?.userType);
     if (user && user?.token) {
       setIsLoggedIn(true);
+      const decodedToken = decode(user?.token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        alert("Your session has expired. Please log in again to continue.");
+        handleLogOut();
+        return navigate(0);
+      }
     }
   }, [location]);
 
