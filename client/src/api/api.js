@@ -2,6 +2,15 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: process.env.REACT_APP_TMDB_BASE_URL });
 
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile")).token
+    }`;
+  }
+  return req;
+});
+
 // Explore Page and Search
 export const getTrendingMovies = () =>
   API.get(`/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
@@ -43,3 +52,10 @@ export const getPersonDetails = (id) =>
   API.get(
     `/person/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   );
+
+// Auth: Sign up, Sign In
+export const signUp = (formData) =>
+  API.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user/signup`, formData);
+
+export const signIn = (formData) =>
+  API.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user/signin`, formData);
