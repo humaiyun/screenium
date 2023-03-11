@@ -20,7 +20,7 @@ const Explore = () => {
 
   const [searchedResults, setSearchedResults] = useState(null);
 
-  const imagePath = "https://image.tmdb.org/t/p/w300";
+  const imagePath = `${process.env.REACT_APP_TMDB_IMAGE_PATH}/w300`;
 
   const onSearchQueryChange = (e) => {
     setSearchQuery(e.target.value);
