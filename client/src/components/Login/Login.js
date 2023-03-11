@@ -40,26 +40,11 @@ const Login = () => {
     console.log("Signup", formData);
   };
 
-  const loginStyle = {
-    borderRadius: 10,
-    padding: 40,
-    height: "40vh",
-    width: 680,
-    margin: "233px auto",
-    backgroundColor: "#303461",
-  };
-  const signupStyle = {
-    borderRadius: 10,
-    padding: 40,
-    height: "54vh",
-    width: 680,
-    margin: "233px auto",
-    backgroundColor: "#303461",
-  };
   if (authMode === "login") {
     return (
-      <Grid>
-        <Paper elevation={10} style={loginStyle}>
+      <Grid className="place-items-center">
+        <div className="p-20 bg-[#303461] m-56 rounded-2xl">
+          {/* <Paper elevation={10} style={loginStyle}> */}
           <h1 className="text-5xl text-white font-bold text-center">
             Login to your account
           </h1>
@@ -135,13 +120,14 @@ const Login = () => {
               Need an account? Sign Up
             </button>
           </Typography>
-        </Paper>
+          {/* </Paper> */}
+        </div>
       </Grid>
     );
   }
   return (
     <Grid>
-      <Paper elevation={10} style={signupStyle}>
+      <div className="p-20 bg-[#303461] m-56 rounded-2xl">
         <h1 className="text-5xl text-white font-bold text-center">
           Sign Up for an account
         </h1>
@@ -263,7 +249,7 @@ const Login = () => {
             Already have an account? Login
           </button>
         </Typography>
-      </Paper>
+      </div>
     </Grid>
   );
 };
