@@ -184,7 +184,7 @@ const Explore = () => {
                 {searchedResults?.map((res, i) => (
                   <div
                     key={i}
-                    className="bg-[#303461] rounded-2xl cursor-pointer"
+                    className="bg-[#303461] rounded-2xl cursor-pointer hover:scale-105 hover:border hover:border-white active:scale-95 transition duration-300"
                   >
                     <Link to={linkToDetailsPage(res?.id)}>
                       <div className="grid grid-cols-4">
@@ -227,23 +227,25 @@ const Explore = () => {
         <h1 className="text-3xl text-left font-semibold">Popular Movies</h1>
         <div className="grid grid-cols-5 gap-1 rounded-lg">
           {trendingMovies?.slice(0, 5).map((movie) => (
-            <div key={movie?.id} className="bg-[#303461] rounded-xl">
-              <img
-                className="rounded-t-xl pointer-events-none"
-                src={`${imagePath}${movie?.poster_path}`}
-                alt={movie?.original_title}
-                loading="lazy"
-              />
-              <div className="grid grid-cols-2 gap-1 place-items-center">
-                <div className="bg-main-secondary font-bold text-xl p-2 m-3 rounded-full text-black text-center">
-                  ⭐{movie?.vote_average?.toFixed(1)}
+            <Link key={movie?.id} to={`/explore/movie/${movie?.id}`}>
+              <div className="bg-[#303461] rounded-xl hover:scale-105 hover:border hover:border-white active:scale-95 transition duration-300">
+                <img
+                  className="rounded-t-xl pointer-events-none"
+                  src={`${imagePath}${movie?.poster_path}`}
+                  alt={movie?.original_title}
+                  loading="lazy"
+                />
+                <div className="grid grid-cols-2 gap-1 place-items-center">
+                  <div className="bg-main-secondary font-bold text-xl p-2 m-3 rounded-full text-black text-center">
+                    ⭐{movie?.vote_average?.toFixed(1)}
+                  </div>
+                  <h2 className="text-lg p-2 font-light">
+                    {movie?.release_date}
+                  </h2>
                 </div>
-                <h2 className="text-lg p-2 font-light">
-                  {movie?.release_date}
-                </h2>
+                <h1 className="text-xl p-2">{movie?.original_title}</h1>
               </div>
-              <h1 className="text-xl p-2">{movie?.original_title}</h1>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -251,21 +253,25 @@ const Explore = () => {
         <h1 className="text-3xl text-left font-semibold">Popular TV Shows</h1>
         <div className="grid grid-cols-5 gap-1 rounded-lg">
           {trendingTV?.slice(0, 5).map((tv) => (
-            <div key={tv?.id} className="bg-[#303461] rounded-xl">
-              <img
-                className="rounded-t-xl pointer-events-none"
-                src={`${imagePath}${tv?.poster_path}`}
-                alt={tv?.name}
-                loading="lazy"
-              />
-              <div className="grid grid-cols-2 gap-1 place-items-center">
-                <div className="bg-main-secondary font-bold text-xl p-2 m-3 rounded-full text-black text-center">
-                  ⭐{tv?.vote_average?.toFixed(1)}
+            <Link key={tv?.id} to={`/explore/tv/${tv?.id}`}>
+              <div className="bg-[#303461] rounded-xl hover:scale-105 hover:border hover:border-white active:scale-95 transition duration-300">
+                <img
+                  className="rounded-t-xl pointer-events-none"
+                  src={`${imagePath}${tv?.poster_path}`}
+                  alt={tv?.name}
+                  loading="lazy"
+                />
+                <div className="grid grid-cols-2 gap-1 place-items-center">
+                  <div className="bg-main-secondary font-bold text-xl p-2 m-3 rounded-full text-black text-center">
+                    ⭐{tv?.vote_average?.toFixed(1)}
+                  </div>
+                  <h2 className="text-lg p-2 font-light">
+                    {tv?.first_air_date}
+                  </h2>
                 </div>
-                <h2 className="text-lg p-2 font-light">{tv?.first_air_date}</h2>
+                <h1 className="text-xl p-2">{tv?.name}</h1>
               </div>
-              <h1 className="text-xl p-2">{tv?.name}</h1>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
