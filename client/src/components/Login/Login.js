@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { InputAdornment, TextField, Typography } from "@mui/material";
+import { Alert, InputAdornment, TextField, Typography } from "@mui/material";
 import { Grid, Paper } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { signIn, signUp } from "../../api/api";
 
 const initialState = {
   username: "",
@@ -16,6 +17,12 @@ const initialState = {
 const Login = () => {
   let [authMode, setAuthMode] = useState("login");
   const [formData, setFormData] = useState(initialState);
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const { pathname, search } = useLocation();
 
@@ -31,20 +38,78 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Login", formData);
+    setErrorMessage("");
+    setIsError(false);
+    setSuccessMessage("");
+    setIsSuccess(false);
+
+    try {
+      const signInResponse = await signIn(formData);
+
+      if (signInResponse.status === 200) {
+        const { message, token } = signInResponse.data;
+        const { userType } = signInResponse.data.existingUser;
+
+        setSuccessMessage(message);
+        setIsSuccess(true);
+
+        localStorage.setItem("profile", JSON.stringify(token));
+        localStorage.setItem("userType", JSON.stringify(userType));
+      }
+
+      console.log(signInResponse);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      setIsError(true);
+
+      console.log(error.response.data.message);
+    }
   };
-  const handleSignUp = (e) => {
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log("Signup", formData);
+    setErrorMessage("");
+    setIsError(false);
+    setSuccessMessage("");
+    setIsSuccess(false);
+
+    try {
+      const signUpResponse = await signUp(formData);
+
+      if (signUpResponse.status === 200) {
+        const { message, token } = signUpResponse.data;
+
+        setSuccessMessage(message);
+        setIsSuccess(true);
+
+        localStorage.setItem("profile", JSON.stringify(token));
+      }
+
+      // console.log(signUpResponse);
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      setIsError(true);
+
+      console.log(error.response.data.message);
+    }
   };
 
   if (authMode === "login") {
     return (
       <Grid className="place-items-center">
         <div className="p-20 bg-[#303461] m-56 rounded-2xl">
-          {/* <Paper elevation={10} style={loginStyle}> */}
+          {isError ? (
+            <Alert className="mb-10" severity="error">
+              ERROR! — {errorMessage}
+            </Alert>
+          ) : null}
+          {isSuccess ? (
+            <Alert className="mb-10" severity="success">
+              SUCCESS! — {successMessage}
+            </Alert>
+          ) : null}
           <h1 className="text-5xl text-white font-bold text-center">
             Login to your account
           </h1>
@@ -120,7 +185,6 @@ const Login = () => {
               Need an account? Sign Up
             </button>
           </Typography>
-          {/* </Paper> */}
         </div>
       </Grid>
     );
@@ -128,6 +192,16 @@ const Login = () => {
   return (
     <Grid>
       <div className="p-20 bg-[#303461] m-56 rounded-2xl">
+        {isError ? (
+          <Alert className="mb-10" severity="error">
+            ERROR! — {errorMessage}
+          </Alert>
+        ) : null}
+        {isSuccess ? (
+          <Alert className="mb-10" severity="success">
+            SUCCESS! — {successMessage}
+          </Alert>
+        ) : null}
         <h1 className="text-5xl text-white font-bold text-center">
           Sign Up for an account
         </h1>
