@@ -1,10 +1,9 @@
-import React from 'react'
-import { Typography } from '@mui/material'
+import React from "react";
+import { Typography } from "@mui/material";
 
 const Profile = () => {
-  return (
-    <Typography variant="h1">Profile</Typography>
-  )
-}
+  // TODO: Add conditional rendering if user is NOT logged in, then display an error component
+  return <Typography variant="h1">Profile</Typography>;
+};
 
-export default Profile
+export default Profile;
