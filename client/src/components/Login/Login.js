@@ -5,7 +5,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../api/api";
 
 const initialState = {
@@ -25,6 +25,9 @@ const Login = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const { pathname, search } = useLocation();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     search === "?signup=true" ? setAuthMode("signup") : setAuthMode("login");
@@ -57,6 +60,7 @@ const Login = () => {
 
         localStorage.setItem("profile", JSON.stringify({ token, userType }));
         //localStorage.setItem("userType", JSON.stringify(userType));
+        return navigate(0);
       }
 
       console.log(signInResponse);
@@ -85,6 +89,8 @@ const Login = () => {
         setIsSuccess(true);
 
         localStorage.setItem("profile", JSON.stringify({ token }));
+
+        return navigate(0);
       }
 
       // console.log(signUpResponse);
