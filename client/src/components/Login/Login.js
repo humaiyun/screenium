@@ -55,8 +55,8 @@ const Login = () => {
         setSuccessMessage(message);
         setIsSuccess(true);
 
-        localStorage.setItem("profile", JSON.stringify(token));
-        localStorage.setItem("userType", JSON.stringify(userType));
+        localStorage.setItem("profile", JSON.stringify({ token, userType }));
+        //localStorage.setItem("userType", JSON.stringify(userType));
       }
 
       console.log(signInResponse);
@@ -84,7 +84,7 @@ const Login = () => {
         setSuccessMessage(message);
         setIsSuccess(true);
 
-        localStorage.setItem("profile", JSON.stringify(token));
+        localStorage.setItem("profile", JSON.stringify({ token }));
       }
 
       // console.log(signUpResponse);
