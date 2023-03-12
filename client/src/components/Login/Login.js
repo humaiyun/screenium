@@ -52,13 +52,16 @@ const Login = () => {
       const signInResponse = await signIn(formData);
 
       if (signInResponse.status === 200) {
-        const { message, token } = signInResponse.data;
+        const { message, token, existingUser } = signInResponse.data;
         const { userType } = signInResponse.data.existingUser;
 
         setSuccessMessage(message);
         setIsSuccess(true);
 
-        localStorage.setItem("profile", JSON.stringify({ token, userType }));
+        localStorage.setItem(
+          "profile",
+          JSON.stringify({ token, userType, existingUser })
+        );
         //localStorage.setItem("userType", JSON.stringify(userType));
         return navigate(0);
       }
