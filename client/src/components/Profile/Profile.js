@@ -77,7 +77,24 @@ const Profile = () => {
                   Edit Profile
                 </button>
               </div>
-              <div className="bg-main-background p-10 mt-8 rounded-3xl col-span-3"></div>
+              <div className="bg-main-background p-10 mt-8 rounded-3xl col-span-3">
+                <h2 className="text-4xl mb-3 underline underline-offset-4">
+                  Watch List
+                </h2>
+                <div className="grid grid-cols-5 gap-3">
+                  {user?.existingUser?.watchList?.map((item) => (
+                    <img
+                      className="pointer-events-none rounded-xl"
+                      src={item?.image}
+                      alt={item?.title}
+                      key={item?.title}
+                    />
+                  ))}
+                </div>
+                <button className="w-full py-3 px-5 mt-10 bg-main-primary rounded-xl hover:scale-105 active:scale-95 transition duration-300 text-3xl font-bold">
+                  Edit List
+                </button>
+              </div>
             </div>
           </div>
         </div>
