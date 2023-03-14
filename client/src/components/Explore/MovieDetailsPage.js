@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { getMovieDetails } from "../../api/api";
+import { getMovieDetails, getMovieReviews } from "../../api/api";
 
 const MovieDetailsPage = () => {
   const [details, setDetails] = useState(null);
+  const [reviews, setReviews] = useState(null);
 
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -11,10 +12,12 @@ const MovieDetailsPage = () => {
   const navigate = useNavigate();
 
   const imagePath = `${process.env.REACT_APP_TMDB_IMAGE_PATH}`;
+  const avatarPath = `${process.env.REACT_APP_TMDB_IMAGE_PATH}/w200`;
 
   useEffect(() => {
     const fetchData = async () => {
       await getMovieDetails(id).then((res) => setDetails(res.data));
+      await getMovieReviews(id).then((res) => setReviews(res.data.results));
     };
 
     fetchData();
@@ -94,7 +97,33 @@ const MovieDetailsPage = () => {
             </h3>
           </div>
         </div>
-        <button onClick={() => console.log(details)}>DETAILS</button>
+      </div>
+
+      <div className="grid-flow-row gap-2">
+        <h1 className="text-6xl font-bold text-center py-10">Reviews</h1>
+        {reviews?.map((review) => (
+          <div
+            key={review?.id}
+            className="bg-[#303461] my-3 p-5 rounded-3xl pl-10"
+          >
+            <div className="grid grid-cols-4">
+              <img
+                className="rounded-full"
+                src={`${avatarPath}${review?.author_details?.avatar_path}`}
+                alt={`${review?.author}'s avatar`}
+                height="100"
+                width="100"
+              />
+              <h1 className="text-3xl font-bold align-middle col-span-2">
+                {review?.author}
+              </h1>
+              <h3 className="py-1 text-2xl font-light">
+                {review?.created_at?.slice(0, 9)}
+              </h3>
+            </div>
+            <p className="py-3">{review?.content}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
