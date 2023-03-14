@@ -132,7 +132,6 @@ const MovieDetailsPage = () => {
           </div>
         ))}
       </div>
-      <button onClick={() => console.log(reviews)}>REVIEWS</button>
     </div>
   );
 };
