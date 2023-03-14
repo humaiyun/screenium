@@ -53,6 +53,16 @@ export const getPersonDetails = (id) =>
     `/person/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
   );
 
+// Reviews for movie and tv shows
+export const getMovieReviews = (id) =>
+  API.get(
+    `/movie/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`
+  );
+export const getTVReviews = (id) =>
+  API.get(
+    `/tv/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`
+  );
+
 // Auth: Sign up, Sign In
 export const signUp = (formData) =>
   API.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user/signup`, formData);
