@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getTVDetails } from "../../api/api";
+import { getTVDetails, getTVReviews } from "../../api/api";
 
 const TvDetailsPage = () => {
   const [details, setDetails] = useState(null);
+  const [reviews, setReviews] = useState(null);
 
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -11,10 +12,12 @@ const TvDetailsPage = () => {
   const navigate = useNavigate();
 
   const imagePath = `${process.env.REACT_APP_TMDB_IMAGE_PATH}`;
+  const avatarPath = `${process.env.REACT_APP_TMDB_IMAGE_PATH}/w200`;
 
   useEffect(() => {
     const fetchData = async () => {
       await getTVDetails(id).then((res) => setDetails(res.data));
+      await getTVReviews(id).then((res) => setReviews(res.data.results));
     };
 
     fetchData();
@@ -43,7 +46,7 @@ const TvDetailsPage = () => {
       <h4 className="text-2xl font-medium text-center py-2 mb-10">
         {details?.overview}
       </h4>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 mt-20">
         <div class="grid grid-cols-1 justify-items-center">
           <div>
             <img
@@ -55,34 +58,68 @@ const TvDetailsPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 text-center">
-          <div className="grid-flow-row">
+        <div className="grid grid-cols-2 gap-5 text-center justify-center items-center">
+          <div className="grid-flow-row bg-[#303461] px-5 py-10 rounded-3xl">
             <h1 className="text-3xl font-bold">First Air Date</h1>
             <h3 className="text-xl">{details?.first_air_date}</h3>
           </div>
-          <div className="grid-flow-row">
+          <div className="grid-flow-row bg-[#303461] px-5 py-10 rounded-3xl">
             <h1 className="text-3xl font-bold">Original Laguage</h1>
             <h3 className="text-xl">{details?.original_language}</h3>
           </div>
-          <div className="grid-flow-row">
+          <div className="grid-flow-row bg-[#303461] px-5 py-10 rounded-3xl">
             <h1 className="text-3xl font-bold">Last Air Date</h1>
             <h3 className="text-xl">{details?.last_air_date}</h3>
           </div>
-          <div className="grid-flow-row">
+          <div className="grid-flow-row bg-[#303461] px-5 py-10 rounded-3xl">
             <h1 className="text-3xl font-bold">Status</h1>
             <h3 className="text-xl">{details?.status}</h3>
           </div>
-          <div className="grid-flow-row">
+          <div className="grid-flow-row bg-[#303461] px-5 py-10 rounded-3xl">
             <h1 className="text-3xl font-bold">No. of Episodes</h1>
             <h3 className="text-xl">{details?.number_of_episodes} Episodes</h3>
           </div>
-          <div className="grid-flow-row">
+          <div className="grid-flow-row bg-[#303461] px-5 py-10 rounded-3xl">
             <h1 className="text-3xl font-bold">Rating</h1>
             <h3 className="text-xl">
               ⭐ &nbsp; {details?.vote_average?.toFixed(1)}
             </h3>
           </div>
         </div>
+      </div>
+
+      <div className="grid-flow-row gap-2">
+        <h1 className="text-6xl font-bold text-center py-10 mt-16">
+          Reviews ({reviews?.length} total)
+        </h1>
+        {reviews?.map((review) => (
+          <div
+            key={review?.id}
+            className="bg-[#303461] my-3 p-5 rounded-3xl pl-10"
+          >
+            <div className="grid grid-cols-4">
+              <img
+                className="rounded-full pointer-events-none"
+                src={`${avatarPath}${review?.author_details?.avatar_path}`}
+                alt={`${review?.author}'s avatar`}
+                height="100"
+                width="100"
+              />
+              <h1 className="text-3xl font-bold align-middle">
+                {review?.author}
+              </h1>
+              <h3 className="py-1 text-2xl font-light">
+                Posted on <strong>{review?.created_at?.slice(0, 9)}</strong>
+              </h3>
+              <div className="bg-main-background text-center text-3xl rounded-full border-2 border-white">
+                <h1 className="mt-4 font-bold">
+                  ⭐ &nbsp; {review?.author_details?.rating || "N/A"}
+                </h1>
+              </div>
+            </div>
+            <p className="py-3 text-xl font-light">{review?.content}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
