@@ -69,3 +69,9 @@ export const signUp = (formData) =>
 
 export const signIn = (formData) =>
   API.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user/signin`, formData);
+
+// get movie and tv show DISCUSSIONS
+export const getTVDiscussions = () =>
+  API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/tv/discussion`);
+export const getMovieDiscussions = () =>
+  API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/movie/discussion`);
