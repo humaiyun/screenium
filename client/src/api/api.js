@@ -75,3 +75,7 @@ export const getTVDiscussions = () =>
   API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/tv/discussion`);
 export const getMovieDiscussions = () =>
   API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/movie/discussion`);
+
+// get all users for admin
+export const getUsers = () =>
+  API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user`);
