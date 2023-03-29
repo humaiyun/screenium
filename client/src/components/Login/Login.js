@@ -55,6 +55,10 @@ const Login = () => {
         const { message, token, existingUser } = signInResponse.data;
         const { userType } = signInResponse.data.existingUser;
 
+        if (userType === "banned") {
+          throw new Error("User is banned from this website");
+        }
+
         setSuccessMessage(message);
         setIsSuccess(true);
 
@@ -68,10 +72,14 @@ const Login = () => {
 
       console.log(signInResponse);
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      if (error.message === "User is banned from this website") {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage(error?.response?.data?.message);
+      }
       setIsError(true);
 
-      console.log(error.response.data.message);
+      console.log(error.message);
     }
   };
 
