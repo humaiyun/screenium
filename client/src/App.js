@@ -11,6 +11,10 @@ import Footer from "./components/NavBar/Footer.js";
 import MovieDetailsPage from "./components/Explore/MovieDetailsPage.js";
 import TvDetailsPage from "./components/Explore/TvDetailsPage.js";
 import PersonDetailsPage from "./components/Explore/PersonDetailsPage.js";
+import MovieDiscussions from "./components/Forums/MovieDiscussions.js";
+import TVDiscussions from "./components/Forums/TVDiscussions.js";
+import MovieDiscussionDetails from "./components/Forums/MovieDiscussionDetails.js";
+import TVDiscussionDetails from "./components/Forums/TVDiscussionDetails.js";
 
 function App() {
   return (
@@ -32,6 +36,18 @@ function App() {
             element={<PersonDetailsPage />}
           />
           <Route path="/forums" exact element={<Forums />} />
+          <Route path="/forums/movie" exact element={<MovieDiscussions />} />
+          <Route
+            path="/forums/movie/:id"
+            exact
+            element={<MovieDiscussionDetails />}
+          />
+          <Route path="/forums/tv" exact element={<TVDiscussions />} />
+          <Route
+            path="/forums/tv/:id"
+            exact
+            element={<TVDiscussionDetails />}
+          />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/admin" exact element={<Admin />} />
