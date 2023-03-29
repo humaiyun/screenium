@@ -76,6 +76,16 @@ export const getTVDiscussions = () =>
 export const getMovieDiscussions = () =>
   API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/movie/discussion`);
 
+// Get movie and tv show discussions BY ID
+export const getMovieDiscussionById = (id) =>
+  API.get(
+    `${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/movie/discussion/${id}`
+  );
+export const getTVDiscussionById = (id) =>
+  API.get(
+    `${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/tv/discussion/${id}`
+  );
+
 // get all users for admin
 export const getUsers = () =>
   API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user`);
