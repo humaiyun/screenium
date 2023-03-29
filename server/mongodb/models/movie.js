@@ -8,10 +8,11 @@ const commentsSchema = new mongoose.Schema({
 
 const movie_discussion = new mongoose.Schema({
   title: String,
+  author: String,
   submitted_date: String,
   body: String,
   comments: {
-    type: commentsSchema,
+    type: [commentsSchema],
   },
 });
 
