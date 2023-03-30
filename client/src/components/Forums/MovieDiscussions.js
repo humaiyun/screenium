@@ -26,9 +26,11 @@ const MovieDiscussions = () => {
         <h1 className="text-3xl md:text-7xl text-center font-bold">
           Movie Discussions
         </h1>
-        <button className="bg-main-secondary w-full text-black py-5 my-10 rounded-full hover:scale-105 active:scale-95 transition duration-500">
-          <h1 className="text-3xl">New Discussion</h1>
-        </button>
+        <Link to="/forums/movie/submission">
+          <button className="bg-main-secondary w-full text-black py-5 my-10 rounded-full hover:scale-105 active:scale-95 transition duration-500">
+            <h1 className="text-3xl">New Discussion</h1>
+          </button>
+        </Link>
         {movieDiscussions?.map((movieDiscussion) => (
           <Link
             to={`/forums/movie/${movieDiscussion._id}`}
