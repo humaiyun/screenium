@@ -26,9 +26,11 @@ const TVDiscussions = () => {
         <h1 className="text-3xl md:text-7xl text-center font-bold">
           TV Discussions
         </h1>
-        <button className="bg-main-secondary w-full text-black py-5 my-10 rounded-full hover:scale-105 active:scale-95 transition duration-500">
-          <h1 className="text-3xl">New Discussion</h1>
-        </button>
+        <Link to="/forums/tv/submission">
+          <button className="bg-main-secondary w-full text-black py-5 my-10 rounded-full hover:scale-105 active:scale-95 transition duration-500">
+            <h1 className="text-3xl">New Discussion</h1>
+          </button>
+        </Link>
         {tvDiscussions?.map((tvDiscussion) => (
           <Link to={`/forums/tv/${tvDiscussion._id}`} key={tvDiscussion?._id}>
             <div className="grid grid-cols-6 bg-main-background outline outline-1 rounded-md p-10 mb-5 mt-10 outline-white min-h-[100px] hover:scale-105 active:scale-95 transition duration-500">
