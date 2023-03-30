@@ -84,3 +84,55 @@ export const postNewTVDiscussion = async (req, res) => {
     });
   }
 };
+
+export const postNewMovieComment = async (req, res) => {
+  const { id } = req.params;
+  const { name, comment } = req.body;
+  const comment_date = new Date().toString().slice(0, 15);
+
+  try {
+    const newComment = { name, comment, comment_date };
+    const existingPost = await movie_discussion.findById(id);
+
+    const updatePost = await movie_discussion.findByIdAndUpdate(
+      id,
+      {
+        id,
+        comments: [...existingPost?.comments, newComment],
+      },
+      { new: true }
+    );
+    return res.json(updatePost);
+  } catch (error) {
+    res.status(404).json({
+      message: "could not retrieve post details",
+      error: error.message,
+    });
+  }
+};
+
+export const postNewTVComment = async (req, res) => {
+  const { id } = req.params;
+  const { name, comment } = req.body;
+  const comment_date = new Date().toString().slice(0, 15);
+
+  try {
+    const newComment = { name, comment, comment_date };
+    const existingPost = await tv_discussion.findById(id);
+
+    const updatePost = await tv_discussion.findByIdAndUpdate(
+      id,
+      {
+        id,
+        comments: [...existingPost?.comments, newComment],
+      },
+      { new: true }
+    );
+    return res.json(updatePost);
+  } catch (error) {
+    res.status(404).json({
+      message: "could not retrieve post details",
+      error: error.message,
+    });
+  }
+};

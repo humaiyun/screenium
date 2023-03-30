@@ -98,6 +98,18 @@ export const postTVDiscussion = (formData) =>
     formData
   );
 
+// submit a new comment for movie and tv show posts
+export const postMovieDiscussionComment = (id, commentData) =>
+  API.patch(
+    `${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/movie/discussion/${id}`,
+    commentData
+  );
+export const postTVDiscussionComment = (id, commentData) =>
+  API.patch(
+    `${process.env.REACT_APP_BACKEND_URL}/api/v1/forum/tv/discussion/${id}`,
+    commentData
+  );
+
 // get all users for admin
 export const getUsers = () =>
   API.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/user`);

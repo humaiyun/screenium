@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMovieDiscussionById } from "../../api/api";
+import {
+  getMovieDiscussionById,
+  postMovieDiscussionComment,
+} from "../../api/api";
 
 const MovieDiscussionDetails = () => {
   const [details, setDetails] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    name: user?.existingUser?.username,
+    comment: "",
+  });
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,6 +25,26 @@ const MovieDiscussionDetails = () => {
 
     fetchData();
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const submitResponse = await postMovieDiscussionComment(id, formData);
+
+      if (submitResponse.status === 200) {
+        setIsSuccess(true);
+        return navigate(0);
+      }
+    } catch (error) {
+      setIsSuccess(false);
+      console.log(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div>
@@ -37,6 +66,42 @@ const MovieDiscussionDetails = () => {
         </div>
       </div>
       <div className="mb-44">
+        <h1 className="text-6xl text-center font-bold mb-10">Reply</h1>
+        <div className="p-20 bg-[#303461] mx-44 mb-10 rounded-2xl">
+          <form method="POST" className="flex flex-col w-full">
+            <input
+              type="hidden"
+              id="name"
+              name="name"
+              value={user?.existingUser?.username}
+              className="p-2 border-2 rounded-md bg-transparent mb-5"
+              onChange={handleChange}
+            />
+
+            <label
+              htmlFor="comment"
+              className="text-lg md:text-3xl font-semibold text-left pb-2"
+            >
+              Comment
+            </label>
+            <textarea
+              id="comment"
+              name="comment"
+              rows="10"
+              className="p-4 mb-5 border-2 rounded-md bg-transparent"
+              onChange={handleChange}
+            />
+
+            <button
+              type="submit"
+              className="p-4 mt-5 hover:scale-105 active:scale-95 transition duration-200 rounded-lg bg-main-primary drop-shadow-md text-lg md:text-2xl font-semibold"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
         <h1 className="text-6xl text-center font-bold mb-3">Comments</h1>
         {details?.comments?.map((comment) => (
           <div
