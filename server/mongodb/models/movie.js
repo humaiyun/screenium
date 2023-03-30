@@ -13,6 +13,7 @@ const movie_discussion = new mongoose.Schema({
   body: String,
   comments: {
     type: [commentsSchema],
+    default: [],
   },
 });
 
