@@ -2,13 +2,13 @@ import tv_discussion from "../mongodb/models/tv.js";
 import movie_discussion from "../mongodb/models/movie.js";
 
 export const getTvDiscussions = async (req, res) => {
-  const posts = await tv_discussion.find({});
+  const posts = await tv_discussion.find({}).sort({ _id: -1 });
 
   return res.status(200).json({ posts });
 };
 
 export const getMovieDiscussions = async (req, res) => {
-  const posts = await movie_discussion.find({});
+  const posts = await movie_discussion.find({}).sort({ _id: -1 });
 
   return res.status(200).json({ posts });
 };
@@ -36,6 +36,50 @@ export const getMovieDiscussionById = async (req, res) => {
   } catch (error) {
     res.status(404).json({
       message: "could not retrieve post details",
+      error: error.message,
+    });
+  }
+};
+
+export const postNewMovieDiscussion = async (req, res) => {
+  const { title, body, author } = req.body;
+
+  const newPost = new movie_discussion({
+    title,
+    body,
+    author,
+    submitted_date: new Date().toString().slice(0, 15),
+    comments: [],
+  });
+
+  try {
+    await newPost.save();
+    return res.status(201).json(newPost);
+  } catch (error) {
+    res.status(404).json({
+      message: "could post new submission",
+      error: error.message,
+    });
+  }
+};
+
+export const postNewTVDiscussion = async (req, res) => {
+  const { title, body, author } = req.body;
+
+  const newPost = new tv_discussion({
+    title,
+    body,
+    author,
+    submitted_date: new Date().toString().slice(0, 15),
+    comments: [],
+  });
+
+  try {
+    await newPost.save();
+    return res.status(201).json(newPost);
+  } catch (error) {
+    res.status(404).json({
+      message: "could post new submission",
       error: error.message,
     });
   }
