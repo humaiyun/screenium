@@ -15,6 +15,8 @@ import MovieDiscussions from "./components/Forums/MovieDiscussions.js";
 import TVDiscussions from "./components/Forums/TVDiscussions.js";
 import MovieDiscussionDetails from "./components/Forums/MovieDiscussionDetails.js";
 import TVDiscussionDetails from "./components/Forums/TVDiscussionDetails.js";
+import NewMovieDiscussion from "./components/Forums/NewMovieDiscussion.js";
+import NewTVDiscussion from "./components/Forums/NewTVDiscussion.js";
 
 function App() {
   return (
@@ -41,6 +43,16 @@ function App() {
             path="/forums/movie/:id"
             exact
             element={<MovieDiscussionDetails />}
+          />
+          <Route
+            path="/forums/movie/submission"
+            exact
+            element={<NewMovieDiscussion />}
+          />
+          <Route
+            path="/forums/tv/submission"
+            exact
+            element={<NewTVDiscussion />}
           />
           <Route path="/forums/tv" exact element={<TVDiscussions />} />
           <Route
