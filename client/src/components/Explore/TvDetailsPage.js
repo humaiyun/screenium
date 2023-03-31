@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getTVDetails, getTVReviews } from "../../api/api";
+import { Alert } from "@mui/material";
 
 const TvDetailsPage = () => {
   const [details, setDetails] = useState(null);
   const [reviews, setReviews] = useState(null);
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [isSuccess, setIsSuccess] = useState(false);
   const { pathname } = useLocation();
   const { id } = useParams();
 
@@ -22,6 +24,20 @@ const TvDetailsPage = () => {
 
     fetchData();
   }, []);
+
+  const handleAddList = () => {
+    const image = `${imagePath}/w400${details?.poster_path}`;
+    const title = details?.name;
+    const { existingUser, token, userType } = user;
+
+    existingUser?.watchList?.push({ image, title });
+
+    localStorage.setItem(
+      "profile",
+      JSON.stringify({ token, userType, existingUser })
+    );
+    setIsSuccess(true);
+  };
 
   return (
     <div className="mb-52">
@@ -46,6 +62,21 @@ const TvDetailsPage = () => {
       <h4 className="text-2xl font-medium text-center py-2 mb-10">
         {details?.overview}
       </h4>
+      {isSuccess ? (
+        <Alert className="my-10" severity="success">
+          <h1 className="text-2xl ">SUCCESS! — Your list has been updated!</h1>
+        </Alert>
+      ) : null}
+      <div className="grid grid-cols-7">
+        <div></div>
+        <button
+          onClick={() => handleAddList()}
+          className="p-5 col-span-5 bg-main-secondary text-black rounded-2xl font-extrabold text-3xl hover:scale-105 active:scale-95 ml-10 my-8 transition duration-500"
+        >
+          ⭐ Add to Watch List ⭐
+        </button>
+        <div></div>
+      </div>
       <div className="grid grid-cols-2 gap-2 mt-20">
         <div class="grid grid-cols-1 justify-items-center">
           <div>
