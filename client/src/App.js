@@ -17,6 +17,7 @@ import MovieDiscussionDetails from "./components/Forums/MovieDiscussionDetails.j
 import TVDiscussionDetails from "./components/Forums/TVDiscussionDetails.js";
 import NewMovieDiscussion from "./components/Forums/NewMovieDiscussion.js";
 import NewTVDiscussion from "./components/Forums/NewTVDiscussion.js";
+import EditProfile from "./components/Profile/EditProfile.js";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
             element={<TVDiscussionDetails />}
           />
           <Route path="/profile" exact element={<Profile />} />
+          <Route path="/profile/edit" exact element={<EditProfile />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/admin" exact element={<Admin />} />
         </Routes>
