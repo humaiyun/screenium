@@ -93,9 +93,11 @@ const Profile = () => {
                     />
                   ))}
                 </div>
-                <button className="w-full py-3 px-5 mt-10 bg-main-primary rounded-xl hover:scale-105 active:scale-95 transition duration-300 text-3xl font-bold">
-                  Edit List
-                </button>
+                <Link to="/profile/edit/list">
+                  <button className="w-full py-3 px-5 mt-10 bg-main-primary rounded-xl hover:scale-105 active:scale-95 transition duration-300 text-3xl font-bold">
+                    Edit List
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

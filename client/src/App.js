@@ -18,6 +18,7 @@ import TVDiscussionDetails from "./components/Forums/TVDiscussionDetails.js";
 import NewMovieDiscussion from "./components/Forums/NewMovieDiscussion.js";
 import NewTVDiscussion from "./components/Forums/NewTVDiscussion.js";
 import EditProfile from "./components/Profile/EditProfile.js";
+import EditList from "./components/Profile/EditList.js";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
           />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/edit" exact element={<EditProfile />} />
+          <Route path="/profile/edit/list" exact element={<EditList />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/admin" exact element={<Admin />} />
         </Routes>
