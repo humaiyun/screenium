@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -73,9 +73,11 @@ const Profile = () => {
                     &nbsp;{user?.existingUser?.biography}
                   </span>
                 </h1>
-                <button className="w-full py-3 px-5 mt-5 bg-main-primary rounded-xl hover:scale-105 active:scale-95 transition duration-300 text-3xl font-bold">
-                  Edit Profile
-                </button>
+                <Link to="/profile/edit">
+                  <button className="w-full py-3 px-5 mt-5 bg-main-primary rounded-xl hover:scale-105 active:scale-95 transition duration-300 text-3xl font-bold">
+                    Edit Profile
+                  </button>
+                </Link>
               </div>
               <div className="bg-main-background p-10 mt-8 rounded-3xl col-span-3">
                 <h2 className="text-4xl mb-3 underline underline-offset-4">
