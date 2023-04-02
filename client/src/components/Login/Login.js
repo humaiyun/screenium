@@ -67,7 +67,7 @@ const Login = () => {
           JSON.stringify({ token, userType, existingUser })
         );
         //localStorage.setItem("userType", JSON.stringify(userType));
-        return navigate("/explore");
+        return navigate(0);
       }
 
       console.log(signInResponse);
