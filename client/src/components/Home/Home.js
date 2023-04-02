@@ -120,8 +120,7 @@ const Home = () => {
               src="/assets/list2.png"
             />
             <p className="mb-3 leading-relaxed text-md text-center">
-              Use your list to organize and track what titles you’ve completed,
-              your current progress, what you plan to watch and so much more.
+              Use your list to organize and track the titles you're watching.
             </p>
             <Link to="/profile">
               <button className="inline-flex text-white bg-main-primary border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded-xl text-lg">
