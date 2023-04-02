@@ -57,9 +57,6 @@ const NavBar = () => {
 
         <Box sx={{ display: { xs: "none", sm: "block" }, marginRight: "10%" }}>
           {/* TODO: conditional rendering of these 3 buttons based on logged in & user role */}
-          <Button component={Link} to="/" color="inherit">
-            Home
-          </Button>
           <Button component={Link} to="/explore" color="inherit">
             Explore
           </Button>
@@ -68,6 +65,9 @@ const NavBar = () => {
           </Button>
           <Button component={Link} to="/profile" color="inherit">
             Profile
+          </Button>
+          <Button component={Link} to="/" color="inherit">
+            About
           </Button>
           {isLoggedIn ? (
             <>
